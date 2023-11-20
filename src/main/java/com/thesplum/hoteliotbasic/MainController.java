@@ -1,7 +1,5 @@
 package com.thesplum.hoteliotbasic;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +24,18 @@ public class MainController {
   public PacketMessage reflection(@RequestBody PacketMessage message) {
     return message;
   }
+
+  @GetMapping("/test-room")
+  @ResponseBody
+  public Room testRoom() {
+    return new Room(10, true, "0x13242342");
+  }
+
+  @PostMapping("/reflect-room")
+  @ResponseBody
+  public Room reflectRoom(@RequestBody Room room) {
+    return room;
+  }
 }
 
 class PacketMessage {
@@ -45,5 +55,41 @@ class PacketMessage {
 
   public void setMessage(String message) {
     this.message = message;
+  }
+}
+
+class Room {
+  private Integer number;
+  private boolean occupied;
+  private String rfidCard;
+
+  public Room(Integer number, boolean occupied, String rfidCard) {
+    setNumber(number);
+    setOccupied(occupied);
+    setRfidCard(rfidCard);
+  }
+
+  public Integer getNumber() {
+    return number;
+  }
+
+  public boolean getOccupied() {
+    return occupied;
+  }
+
+  public String getRfidCard() {
+    return rfidCard;
+  }
+
+  public void setNumber(Integer number) {
+    this.number = number;
+  }
+
+  public void setOccupied(boolean occupied) {
+    this.occupied = occupied;
+  }
+
+  public void setRfidCard(String rfidCard) {
+    this.rfidCard = rfidCard;
   }
 }
