@@ -1,8 +1,12 @@
 package com.thesplum.hoteliotbasic;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +39,17 @@ public class MainController {
   @ResponseBody
   public Room reflectRoom(@RequestBody Room room) {
     return room;
+  }
+  
+  @GetMapping("/reflect-request")
+  @ResponseBody
+  public List<String> reflectRequest(@RequestHeader("Accept-Encoding") String encoding, @RequestHeader("Accept") String accept) {
+    List<String> headers = new ArrayList<>(2);
+    headers.add(encoding);
+    headers.add(accept);
+    LocalDateTime date = LocalDateTime.now();
+    System.out.println("Date: " + date + "| Headers: " + headers);
+    return headers;
   }
 }
 
